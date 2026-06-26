@@ -10,6 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const qcmForm = document.getElementById('qcm-form');
     
     let timerInterval;
+    let isSubmitting = false;
+    let qcmStarted = false;
+    let fullscreenEscapes = 0;
+
+    // CORRECTION CLÉ : on mémorise si on était en plein écran
+    // Cela évite le double déclenchement de fullscreenchange + webkitfullscreenchange
+    // qui comptait deux fois la même sortie du plein écran
+    let wasInFullscreen = false;
+
+    // Flag pour éviter que visibilitychange réagisse pendant les transitions
+    // d'entrée/sortie du plein écran (le navigateur peut cacher la page brièvement)
+    let fullscreenTransitionInProgress = false;
 
     function startTimer() {
         if (timeDisplay && !timerInterval) {
@@ -17,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 timeRemaining--;
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
+                    if (isSubmitting) return;
+                    isSubmitting = true;
                     if (qcmForm) {
                         qcmForm.submit();
                     } else {
@@ -39,8 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Gestion de l'Anti-triche
     const overlay = document.getElementById('cheat-overlay');
     const resumeBtn = document.getElementById('resume-btn');
-    let qcmStarted = false;
-    let fullscreenEscapes = 0;
 
     function showOverlay() {
         if (overlay && qcmStarted) {
@@ -54,13 +66,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function enterFullscreen() {
+        // On signale qu'une transition est en cours pour ignorer visibilitychange pendant ce temps
+        fullscreenTransitionInProgress = true;
         let elem = document.documentElement;
+        let promise;
         if (elem.requestFullscreen) {
-            elem.requestFullscreen().catch(err => console.log(err));
+            promise = elem.requestFullscreen();
         } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
+            promise = elem.webkitRequestFullscreen();
         } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
+            promise = elem.msRequestFullscreen();
+        }
+        // On attend la confirmation du navigateur avant de lever le flag
+        if (promise && typeof promise.then === 'function') {
+            promise.then(() => {
+                fullscreenTransitionInProgress = false;
+            }).catch(() => {
+                fullscreenTransitionInProgress = false;
+            });
+        } else {
+            // Fallback si le navigateur ne retourne pas de Promise
+            setTimeout(() => { fullscreenTransitionInProgress = false; }, 500);
         }
     }
 
@@ -71,12 +97,20 @@ document.addEventListener("DOMContentLoaded", () => {
             startOverlay.style.display = 'none';
             if (qcmContainer) qcmContainer.style.display = 'block';
             qcmStarted = true;
+            wasInFullscreen = true; // On est maintenant en plein écran
             startTimer();
         });
     }
 
     if (resumeBtn) {
         resumeBtn.addEventListener('click', hideOverlay);
+    }
+    
+    // Intercepter la soumission manuelle du formulaire
+    if (qcmForm) {
+        qcmForm.addEventListener('submit', () => {
+            isSubmitting = true;
+        });
     }
 
     // 1. Désactiver le clic droit
@@ -97,25 +131,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 4. Détection du changement d'onglet ou minimisation de la fenêtre (Triche directe -> 0)
+    // 4. Détection du changement d'onglet ou minimisation (Triche directe -> 0)
+    // On ignore ce déclenchement si on est en plein milieu d'une transition plein écran
     document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden' && qcmStarted) {
-            window.location.href = 'process.php?cheat=1';
+        if (document.visibilityState === 'hidden' && qcmStarted && !isSubmitting) {
+            if (!fullscreenTransitionInProgress) {
+                isSubmitting = true;
+                window.location.href = 'process.php?cheat=1';
+            }
         }
     });
 
     // 5. Détection si l'utilisateur quitte le plein écran (Touche Echap)
+    // CORRECTION : on utilise wasInFullscreen pour ne compter qu'UNE SEULE sortie,
+    // même si les deux événements (fullscreenchange ET webkitfullscreenchange) se déclenchent
+    // en même temps sur Chrome/Chromium (ce qui doublait le compteur fullscreenEscapes).
     function handleFullscreenChange() {
-        if (!document.fullscreenElement && !document.webkitFullscreenElement && qcmStarted) {
+        const isNowInFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+        // On réagit SEULEMENT si on vient de sortir du plein écran (était dedans, maintenant dehors)
+        if (!isNowInFullscreen && wasInFullscreen && qcmStarted) {
             fullscreenEscapes++;
             if (fullscreenEscapes === 1) {
                 // Premier avertissement
                 showOverlay();
             } else {
                 // Deuxième fois -> Triche directe -> 0
-                window.location.href = 'process.php?cheat=1';
+                if (!isSubmitting) {
+                    isSubmitting = true;
+                    window.location.href = 'process.php?cheat=1';
+                }
             }
         }
+
+        // On mémorise l'état actuel pour la prochaine comparaison
+        wasInFullscreen = isNowInFullscreen;
     }
 
     document.addEventListener('fullscreenchange', handleFullscreenChange);

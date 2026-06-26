@@ -2,8 +2,20 @@
 require_once '../commun/includes/db.php';
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-if (!isset($_SESSION['utilisateur_id']) || !isset($_SESSION['qcm_questions'])) {
-    header("Location: /qcm/index.php");
+// Si pas connecté, on redirige vers la connexion
+if (!isset($_SESSION['utilisateur_id'])) {
+    header("Location: /qcm/auth/connexion.php");
+    exit;
+}
+
+// Si la session QCM est déjà terminée (double appel après fraude)
+// On redirige vers fraud.php si le flag est présent, sinon vers l'accueil
+if (!isset($_SESSION['qcm_questions'])) {
+    if (isset($_SESSION['qcm_fraud']) && $_SESSION['qcm_fraud'] === true) {
+        header("Location: /qcm/qcm/fraud.php");
+    } else {
+        header("Location: /qcm/index.php");
+    }
     exit;
 }
 
@@ -89,6 +101,12 @@ if ($is_canceled || $is_cheated) {
 // Stockage des résultats en session pour result.php
 $_SESSION['qcm_score'] = $score;
 $_SESSION['qcm_details'] = $details_correction;
+
+// Si c'est une fraude, on marque la session AVANT de nettoyer
+// Cela permet à fraud.php de rester visible même si la page est rechargée
+if ($is_cheated) {
+    $_SESSION['qcm_fraud'] = true;
+}
 
 // On nettoie la session de QCM pour empêcher un rechargement
 unset($_SESSION['qcm_questions']);

@@ -46,7 +46,7 @@ require_once '../commun/includes/header.php';
 ?>
 
 <div class="container">
-    <div class="form-container" style="max-width: 800px;">
+    <div class="form-container max-w-800">
         <div class="qcm-header">
             <h2>Ajouter une question</h2>
             <a href="questions.php" class="btn btn-outline">Retour à la liste</a>
@@ -71,7 +71,7 @@ require_once '../commun/includes/header.php';
                 <textarea id="question" name="question" class="form-control" rows="3" required><?php echo htmlspecialchars($_POST['question'] ?? ''); ?></textarea>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="grid-2">
                 <div class="form-group">
                     <label for="reponse1">Réponse 1</label>
                     <input type="text" id="reponse1" name="reponse1" class="form-control" value="<?php echo htmlspecialchars($_POST['reponse1'] ?? ''); ?>" required>
@@ -104,7 +104,7 @@ require_once '../commun/includes/header.php';
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Enregistrer la question</button>
+            <button type="submit" class="btn btn-primary btn-w100">Enregistrer la question</button>
         </form>
     </div>
 </div>

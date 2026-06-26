@@ -7,9 +7,22 @@ if (!isset($_SESSION['utilisateur_id'])) {
     exit;
 }
 
-if (!isset($_SESSION['qcm_questions'])) {
-    header("Location: start.php");
-    exit;
+// Anti-rafraîchissement : on vérifie le flag de chargement unique
+// Si le flag est absent MAIS que le QCM est déjà en session -> c'est un rafraîchissement (F5) -> Triche
+if (!isset($_SESSION['qcm_autorise_chargement']) || $_SESSION['qcm_autorise_chargement'] !== true) {
+    if (isset($_SESSION['qcm_questions'])) {
+        // Rafraîchissement détecté : on punit comme une triche
+        header("Location: process.php?cheat=1");
+        exit;
+    } else {
+        // Pas de QCM en cours et pas de flag -> accès direct non autorisé
+        header("Location: start.php");
+        exit;
+    }
+} else {
+    // Premier chargement légitime : on consomme le flag immédiatement
+    // Les prochains chargements de cette page n'auront plus ce flag
+    unset($_SESSION['qcm_autorise_chargement']);
 }
 
 $time_elapsed = time() - $_SESSION['qcm_start_time'];
@@ -46,7 +59,7 @@ require_once '../commun/includes/header.php';
 ?>
 
 <div class="container" id="qcm-container" style="display: none;">
-    <div class="qcm-header" style="position: sticky; top: 0; background: var(--bg-color); z-index: 10; padding: 1rem 0; border-bottom: 2px solid var(--border-color);">
+    <div class="qcm-header qcm-header-sticky">
         <h2>Test en cours...</h2>
         <div class="timer">Temps restant : <span id="time-display"><?php echo gmdate("i:s", $time_remaining); ?></span></div>
     </div>
@@ -80,16 +93,16 @@ require_once '../commun/includes/header.php';
             </div>
         <?php endforeach; ?>
         
-        <div style="margin: 3rem 0; text-align: center;">
+        <div class="my-6 text-center">
             <button type="submit" class="btn btn-primary btn-lg">Terminer le QCM et voir les résultats</button>
         </div>
     </form>
 </div>
 
 <!-- Overlay d'instruction et bouton de lancement -->
-<div id="start-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-color); z-index: 9998; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem;">
+<div id="start-overlay" class="start-overlay">
     <h2>Prêt à commencer ?</h2>
-    <p style="max-width: 600px; margin: 1.5rem 0; font-size: 1.2rem;">
+    <p class="start-overlay-text">
         Le QCM comprend 10 questions affichées sur une seule page.
         Vous avez 10 minutes pour répondre à toutes les questions. 
         Le test se lancera en plein écran. Toute tentative de quitter le plein écran annulera votre test.
@@ -100,9 +113,9 @@ require_once '../commun/includes/header.php';
 <!-- L'overlay d'anti-triche -->
 <div id="cheat-overlay">
     <h1 class="cheat-warning">⚠️ ATTENTION ⚠️</h1>
-    <p style="font-size: 1.5rem; margin-bottom: 2rem;">Vous avez quitté le mode plein écran ou changé d'onglet.</p>
+    <p class="cheat-overlay-text">Vous avez quitté le mode plein écran ou changé d'onglet.</p>
     <p>Cette action est considérée comme une tentative de triche.</p>
-    <button id="resume-btn" class="btn btn-danger btn-lg" style="margin-top: 2rem;">Reprendre en plein écran</button>
+    <button id="resume-btn" class="btn btn-danger btn-lg mt-5">Reprendre en plein écran</button>
 </div>
 
 <!-- Script Anti-Triche et Timer -->

@@ -62,22 +62,22 @@ require_once '../commun/includes/header.php';
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td><?php echo htmlspecialchars($user['prenom']); ?></td>
                     <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo $user['role'] === 'admin' ? '<span class="user-badge" style="color:var(--accent-color);">Admin</span>' : 'Utilisateur'; ?></td>
+                    <td><?php echo $user['role'] === 'admin' ? '<span class="user-badge text-accent">Admin</span>' : 'Utilisateur'; ?></td>
                     <td>
                         <?php if ($user['statut'] === 'actif') : ?>
-                            <span style="color:var(--success-color); font-weight:bold;">Actif</span>
+                            <span class="text-success fw-bold">Actif</span>
                         <?php else : ?>
-                            <span style="color:var(--danger-color); font-weight:bold;">Bloqué</span>
+                            <span class="text-danger fw-bold">Bloqué</span>
                         <?php endif; ?>
                     </td>
                     <td>
                         <?php if ($user['id'] != $_SESSION['utilisateur_id']) : ?>
                             <?php if ($user['statut'] === 'actif') : ?>
-                                <a href="users.php?action=bloquer&id=<?php echo $user['id']; ?>" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.875rem;">Bloquer</a>
+                                <a href="users.php?action=bloquer&id=<?php echo $user['id']; ?>" class="btn btn-outline btn-sm">Bloquer</a>
                             <?php else : ?>
-                                <a href="users.php?action=debloquer&id=<?php echo $user['id']; ?>" class="btn btn-primary" style="padding:0.25rem 0.5rem; font-size:0.875rem;">Débloquer</a>
+                                <a href="users.php?action=debloquer&id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Débloquer</a>
                             <?php endif; ?>
-                            <a href="users.php?action=supprimer&id=<?php echo $user['id']; ?>" class="btn btn-danger" style="padding:0.25rem 0.5rem; font-size:0.875rem;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
+                            <a href="users.php?action=supprimer&id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
                         <?php endif; ?>
                     </td>
                 </tr>

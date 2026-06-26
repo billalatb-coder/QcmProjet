@@ -55,8 +55,8 @@ require_once '../commun/includes/header.php';
                         ?>
                     </td>
                     <td>
-                        <a href="question_edit.php?id=<?php echo $q['id']; ?>" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.875rem;">Modifier</a>
-                        <a href="questions.php?action=supprimer&id=<?php echo $q['id']; ?>" class="btn btn-danger" style="padding:0.25rem 0.5rem; font-size:0.875rem;" onclick="return confirm('Supprimer cette question ?');">Supprimer</a>
+                        <a href="question_edit.php?id=<?php echo $q['id']; ?>" class="btn btn-outline btn-sm">Modifier</a>
+                        <a href="questions.php?action=supprimer&id=<?php echo $q['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette question ?');">Supprimer</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

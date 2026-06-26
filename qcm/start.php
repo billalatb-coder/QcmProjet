@@ -7,6 +7,11 @@ if (!isset($_SESSION['utilisateur_id'])) {
     exit;
 }
 
+// Nettoyage du flag de fraude d'une éventuelle session précédente
+// Cela garantit qu'un utilisateur qui démarre honnêtement un nouveau QCM
+// repart d'un état propre, sans résidu de l'anti-triche précédent
+unset($_SESSION['qcm_fraud']);
+
 // Vérification qu'il y a assez de questions
 $sql_count = "SELECT COUNT(*) as total FROM questions";
 $result_count = mysqli_query($conn, $sql_count);
@@ -31,6 +36,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 // Initialisation des variables de session pour le QCM
 $_SESSION['qcm_questions'] = $questions_ids;
 $_SESSION['qcm_start_time'] = time();
+
+// Flag unique autorisant le premier chargement de question.php
+// Il sera consommé dès la première ouverture de la page
+// Tout rechargement ultérieur (F5, Ctrl+R) sera détecté comme une triche
+$_SESSION['qcm_autorise_chargement'] = true;
 
 header("Location: question.php");
 exit;

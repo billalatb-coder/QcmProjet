@@ -24,8 +24,8 @@ require_once '../commun/includes/header.php';
         <a href="history.php" class="btn btn-outline">Voir mon historique</a>
     </div>
 
-    <div class="text-center" style="margin: 3rem 0;">
-        <h1 style="font-size: 4rem; color: <?php echo $score >= 10 ? 'var(--success-color)' : 'var(--danger-color)'; ?>;">
+    <div class="text-center my-6">
+        <h1 class="result-score-title <?php echo $score >= 10 ? 'text-success' : 'text-danger'; ?>">
             <?php echo $score; ?> / 20
         </h1>
         <p class="hero-subtitle">
@@ -37,17 +37,17 @@ require_once '../commun/includes/header.php';
         </p>
     </div>
 
-    <h3 style="margin-bottom: 2rem;">Correction détaillée :</h3>
-
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <h3 class="mb-5">Correction détaillée :</h3>
+    
+    <div class="d-flex flex-column gap-4">
         <?php foreach ($details as $index => $d) : ?>
-            <div class="question-card" style="padding: 1.5rem; border-left: 5px solid <?php echo $d['est_correcte'] ? 'var(--success-color)' : 'var(--danger-color)'; ?>">
-                <h4 style="margin-bottom: 1rem;">Question <?php echo $index + 1; ?> : <?php echo htmlspecialchars($d['question']); ?></h4>
+            <div class="question-card <?php echo $d['est_correcte'] ? 'question-card-success' : 'question-card-danger'; ?>" style="padding: 1.5rem;">
+                <h4 class="mb-3">Question <?php echo $index + 1; ?> : <?php echo htmlspecialchars($d['question']); ?></h4>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #f8fafc; padding: 1rem; border-radius: var(--radius-md);">
+                <div class="correction-grid">
                     <div>
                         <strong>Votre réponse :</strong><br>
-                        <span style="color: <?php echo $d['est_correcte'] ? 'var(--success-color)' : 'var(--danger-color)'; ?>; font-weight: 500;">
+                        <span class="<?php echo $d['est_correcte'] ? 'text-success' : 'text-danger'; ?> fw-500">
                             <?php echo htmlspecialchars($d['reponse_utilisateur']); ?>
                         </span>
                     </div>
@@ -55,7 +55,7 @@ require_once '../commun/includes/header.php';
                     <?php if (!$d['est_correcte']) : ?>
                     <div>
                         <strong>Bonne réponse :</strong><br>
-                        <span style="color: var(--success-color); font-weight: 500;">
+                        <span class="text-success fw-500">
                             <?php echo htmlspecialchars($d['bonne_reponse']); ?>
                         </span>
                     </div>
@@ -65,7 +65,7 @@ require_once '../commun/includes/header.php';
         <?php endforeach; ?>
     </div>
     
-    <div class="text-center" style="margin-top: 3rem;">
+    <div class="text-center mt-6">
         <a href="start.php" class="btn btn-primary btn-lg">Refaire un QCM</a>
     </div>
 </div>

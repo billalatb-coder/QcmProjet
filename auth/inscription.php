@@ -62,7 +62,7 @@ require_once '../commun/includes/header.php';
     
     <?php if (!empty($succes)) : ?>
         <div class="alert alert-success"><?php echo htmlspecialchars($succes); ?></div>
-        <div class="text-center" style="margin-top: 1rem;">
+        <div class="text-center mt-3">
             <a href="/qcm/auth/connexion.php" class="btn btn-primary">Aller à la connexion</a>
         </div>
     <?php else : ?>
@@ -87,9 +87,9 @@ require_once '../commun/includes/header.php';
                 <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" required>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
+            <button type="submit" class="btn btn-primary btn-w100">S'inscrire</button>
         </form>
-        <p class="text-center" style="margin-top: 1.5rem;">
+        <p class="text-center mt-4">
             Déjà un compte ? <a href="/qcm/auth/connexion.php">Connectez-vous</a>
         </p>
     <?php endif; ?>

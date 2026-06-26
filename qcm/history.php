@@ -26,7 +26,7 @@ require_once '../commun/includes/header.php';
     <div class="qcm-header">
         <h2>Mon Historique</h2>
         <div>
-            <span class="user-badge" style="font-size: 1.1rem;">Moyenne générale : <strong><?php echo $moyenne; ?> / 20</strong></span>
+            <span class="user-badge history-moyenne">Moyenne générale : <strong><?php echo $moyenne; ?> / 20</strong></span>
         </div>
     </div>
 
@@ -34,7 +34,7 @@ require_once '../commun/includes/header.php';
         <div class="alert alert-warning text-center">
             Vous n'avez passé aucun QCM pour le moment.
         </div>
-        <div class="text-center" style="margin-top: 2rem;">
+        <div class="text-center mt-5">
             <a href="start.php" class="btn btn-primary btn-lg">Passer mon premier QCM</a>
         </div>
     <?php else : ?>
@@ -59,9 +59,9 @@ require_once '../commun/includes/header.php';
                         <td><strong><?php echo $tentative['score']; ?> / 20</strong></td>
                         <td>
                             <?php if ($tentative['score'] >= 10) : ?>
-                                <span style="color:var(--success-color); font-weight:bold;">Réussi</span>
+                                <span class="text-success fw-bold">Réussi</span>
                             <?php else : ?>
-                                <span style="color:var(--danger-color); font-weight:bold;">Échoué</span>
+                                <span class="text-danger fw-bold">Échoué</span>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -70,7 +70,7 @@ require_once '../commun/includes/header.php';
             </table>
         </div>
         
-        <div class="text-center" style="margin-top: 3rem;">
+        <div class="text-center mt-6">
             <a href="start.php" class="btn btn-primary">Passer un nouveau QCM</a>
         </div>
     <?php endif; ?>

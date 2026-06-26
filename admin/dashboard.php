@@ -32,7 +32,7 @@ require_once '../commun/includes/header.php';
         </div>
     </div>
     
-    <div class="features-grid" style="margin-top: 2rem;">
+    <div class="features-grid mt-5">
         <div class="feature-card">
             <div class="feature-icon">👥</div>
             <h3><?php echo $total_users; ?></h3>

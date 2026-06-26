@@ -66,10 +66,10 @@ require_once '../commun/includes/header.php';
             <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" required>
         </div>
         
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+        <button type="submit" class="btn btn-primary btn-w100">Se connecter</button>
     </form>
     
-    <p class="text-center" style="margin-top: 1.5rem;">
+    <p class="text-center mt-4">
         Pas encore de compte ? <a href="/qcm/auth/inscription.php">Inscrivez-vous</a>
     </p>
 </div>
