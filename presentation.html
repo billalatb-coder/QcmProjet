@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QCM Pro — Soutenance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================
+   QCM PRO — SOUTENANCE UNIVERSITAIRE
+   Style sobre, professionnel, académique
+   ============================================ */
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+        --accent: #059669;
+        --danger: #dc2626;
+        --warning: #d97706;
+
+        --bg: #f8fafc;
+        --bg-white: #ffffff;
+        --bg-gray: #f1f5f9;
+        --bg-dark: #1e293b;
+
+        --text: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --text-light: #94a3b8;
+
+        --border: #e2e8f0;
+        --border-light: #f1f5f9;
+        --border-dark: #cbd5e1;
+
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow: hidden;
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      /* ---- Navigation Bar ---- */
+      .nav-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        background: var(--bg-white);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+      }
+
+      .nav-brand {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
+
+      .nav-brand span {
+        color: var(--primary);
+      }
+
+      .nav-progress {
+        flex: 1;
+        max-width: 240px;
+        height: 3px;
+        background: var(--border);
+        border-radius: 2px;
+        margin: 0 2rem;
+        overflow: hidden;
+      }
+
+      .nav-progress-bar {
+        height: 100%;
+        background: var(--primary);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+        width: 10%;
+      }
+
+      .nav-timer {
+        font-family: "SF Mono", monospace;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      /* ---- Slides ---- */
+      .slide {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 72px 2rem 80px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.35s ease,
+          visibility 0.35s;
+        overflow-y: auto;
+      }
+
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .slide-content {
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .slide-number {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 2rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-light);
+        letter-spacing: 0.05em;
+      }
+
+      /* ---- Badges ---- */
+      .badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        background: var(--bg-gray);
+        color: var(--text-secondary);
+        border: 1px solid var(--border);
+        margin-bottom: 1.25rem;
+      }
+
+      .badge-accent {
+        background: #fef2f2;
+        color: var(--danger);
+        border-color: #fecaca;
+      }
+      .badge-success {
+        background: #f0fdf4;
+        color: var(--accent);
+        border-color: #bbf7d0;
+      }
+      .badge-danger {
+        background: #fef2f2;
+        color: var(--danger);
+        border-color: #fecaca;
+      }
+      .badge-primary {
+        background: #eff6ff;
+        color: var(--primary);
+        border-color: #bfdbfe;
+      }
+
+      /* ---- Typography ---- */
+      h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.6rem;
+        line-height: 1.2;
+        color: var(--text);
+      }
+
+      .slide-desc {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 550px;
+        line-height: 1.6;
+      }
+
+      .section-subtitle {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--text);
+      }
+
+      /* ---- Slide 1: Hero ---- */
+      .hero-title {
+        margin-bottom: 0.75rem;
+      }
+
+      .gradient-text {
+        display: block;
+        font-size: 3.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        line-height: 1.1;
+      }
+
+      .hero-title .subtitle {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+        letter-spacing: -0.01em;
+      }
+
+      .hero-desc {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        max-width: 500px;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      /* Team Grid */
+      .team-grid {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .team-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        text-align: center;
+        min-width: 140px;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .team-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .team-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        color: white;
+        margin: 0 auto 0.6rem;
+      }
+
+      .team-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.15rem;
+      }
+      .team-role {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      /* Tech Stack */
+      .tech-stack {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tech-badge {
+        padding: 0.3rem 0.75rem;
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      /* ---- Slide 2: Architecture ---- */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .arch-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .arch-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .arch-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.6rem;
+      }
+      .arch-card h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .arch-card ul {
+        list-style: none;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+      .arch-card ul li {
+        padding: 0.15rem 0;
+        position: relative;
+        padding-left: 0.8rem;
+      }
+      .arch-card ul li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--text-light);
+      }
+
+      /* ---- Code Preview ---- */
+      .code-preview {
+        background: var(--bg-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .code-preview.mini {
+        font-size: 0.78rem;
+      }
+
+      .code-header {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .code-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .code-dot.red {
+        background: #ef4444;
+      }
+      .code-dot.yellow {
+        background: #f59e0b;
+      }
+      .code-dot.green {
+        background: #10b981;
+      }
+
+      .code-filename {
+        margin-left: 0.4rem;
+        font-size: 0.72rem;
+        color: var(--text-light);
+        font-family: "SF Mono", monospace;
+      }
+
+      .code-preview pre {
+        padding: 1rem;
+        overflow-x: auto;
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: #e2e8f0;
+      }
+
+      .code-preview code {
+        font-family: inherit;
+      }
+
+      /* ---- Two Column Layout ---- */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+      .col-left,
+      .col-right {
+        min-width: 0;
+      }
+
+      /* ---- Screenshot Frame ---- */
+      .screenshot-frame {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .screenshot-frame:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .screenshot-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+        min-height: 180px;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      }
+
+      .screenshot-label {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-align: center;
+        border-top: 1px solid var(--border);
+        background: var(--bg-white);
+      }
+
+      /* ---- Feature List ---- */
+      .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .feature-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+
+      .feature-check {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        margin-top: 0.1rem;
+      }
+
+      .feature-item strong {
+        display: block;
+        font-size: 0.88rem;
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+        color: var(--text);
+      }
+      .feature-item p {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      .feature-item code {
+        background: var(--bg-gray);
+        color: var(--primary-dark);
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        font-size: 0.75rem;
+        font-family: "SF Mono", monospace;
+      }
+
+      /* ---- Check List ---- */
+      .check-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .check-list li {
+        position: relative;
+        padding-left: 1.3rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .check-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ---- Demo Callout ---- */
+      .demo-callout {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.1rem;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+        color: var(--primary-dark);
+      }
+
+      .demo-icon {
+        font-size: 1rem;
+      }
+
+      /* ---- Flow Diagram ---- */
+      .flow-diagram {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0.4rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .flow-step {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        text-align: center;
+        min-width: 130px;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .flow-step:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .flow-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+      }
+
+      .flow-label {
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .flow-desc {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+      .flow-arrow {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+      }
+
+      /* ---- Anti-Triche Grid ---- */
+      .anti-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .anti-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        text-align: center;
+        transition: box-shadow 0.2s ease;
+        position: relative;
+      }
+
+      .anti-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .anti-num {
+        position: absolute;
+        top: 0.6rem;
+        left: 0.6rem;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+
+      .anti-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.4rem;
+      }
+      .anti-card h4 {
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: var(--text);
+      }
+      .anti-card p {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        font-family: "SF Mono", monospace;
+      }
+
+      /* ---- Admin Stats ---- */
+      .admin-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        text-align: center;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .stat-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1;
+        margin-bottom: 0.4rem;
+      }
+
+      .stat-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      /* ---- Design Showcase ---- */
+      .design-showcase {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .design-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .design-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .design-preview {
+        height: 60px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .design-card h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: var(--text);
+      }
+      .design-card p {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ---- Security Grid ---- */
+      .security-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .sec-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .sec-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .sec-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .sec-card h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .sec-card p {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .sec-card code {
+        background: var(--bg-gray);
+        color: var(--primary-dark);
+        padding: 0.1rem 0.25rem;
+        border-radius: 3px;
+        font-size: 0.72rem;
+        font-family: "SF Mono", monospace;
+      }
+
+      /* ---- Conclusion ---- */
+      .conclusion-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .conc-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .conc-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .conc-num {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        border-radius: var(--radius-sm);
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: white;
+      }
+
+      .conc-card h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--text);
+      }
+      .conc-card p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* ---- Final Section ---- */
+      .final-message {
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .final-message h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+
+      .final-message p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+
+      .final-links {
+        text-align: center;
+      }
+
+      .final-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.6rem 1.2rem;
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .final-link:hover {
+        border-color: var(--primary);
+        color: var(--text);
+      }
+
+      /* ---- Navigation Controls ---- */
+      .nav-controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: var(--bg-white);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
+      }
+
+      .nav-btn {
+        padding: 0.5rem 1.25rem;
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .nav-btn:hover {
+        background: var(--bg-gray);
+        border-color: var(--border-dark);
+      }
+      .nav-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .nav-dots {
+        display: flex;
+        gap: 0.4rem;
+      }
+
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-dark);
+        cursor: pointer;
+        transition: background 0.2s ease;
+        border: none;
+      }
+
+      .nav-dot.active {
+        background: var(--primary);
+      }
+
+      /* ---- Responsive ---- */
+      @media (max-width: 1024px) {
+        .arch-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .anti-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .security-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .design-showcase {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .admin-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .conclusion-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        h2 {
+          font-size: 1.6rem;
+        }
+        .gradient-text {
+          font-size: 2.2rem;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .arch-grid {
+          grid-template-columns: 1fr;
+        }
+        .anti-grid {
+          grid-template-columns: 1fr;
+        }
+        .security-grid {
+          grid-template-columns: 1fr;
+        }
+        .design-showcase {
+          grid-template-columns: 1fr;
+        }
+        .admin-stats {
+          grid-template-columns: 1fr;
+        }
+        .team-grid {
+          flex-direction: column;
+        }
+        .flow-diagram {
+          flex-direction: column;
+        }
+        .flow-arrow {
+          display: none;
+        }
+        .slide {
+          padding: 72px 1rem 70px;
+        }
+        .nav-bar {
+          padding: 0 1rem;
+        }
+        .nav-progress {
+          display: none;
+        }
+      }
+
+      /* ---- Scrollbar ---- */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-dark);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-light);
+      }
+    </style>
+    <base target="_blank" />
+  </head>
+  <body>
+    <!-- Navigation fixe -->
+    <nav class="nav-bar">
+      <div class="nav-brand">QCM<span>Pro</span></div>
+      <div class="nav-progress">
+        <div class="nav-progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="nav-timer" id="nav-timer">00:00</div>
+    </nav>
+
+    <!-- Slide 1 : Accroche -->
+    <section class="slide active" id="slide-1">
+      <div class="slide-content">
+        <div class="badge badge-accent">Soutenance Projet Web — ECE Paris</div>
+        <h1 class="hero-title">
+          <span class="gradient-text">QCM Pro</span>
+          <span class="subtitle"
+            >Plateforme d'évaluation en ligne sécurisée</span
+          >
+        </h1>
+        <p class="hero-desc">
+          Un système complet de QCM avec authentification, anti-triche en temps
+          réel, historique personnel et administration centralisée.
+        </p>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-avatar">A</div>
+            <div class="team-name">Arezki</div>
+            <div class="team-role">Auth & Sécurité</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">R</div>
+            <div class="team-name">Aris</div>
+            <div class="team-role">Admin & Design CSS</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">B</div>
+            <div class="team-name">Billal</div>
+            <div class="team-role">QCM, Anti-Triche, Résultats</div>
+          </div>
+        </div>
+        <div class="tech-stack">
+          <span class="tech-badge">PHP Vanilla</span>
+          <span class="tech-badge">MySQL</span>
+          <span class="tech-badge">JavaScript Vanilla</span>
+          <span class="tech-badge">CSS3 Variables</span>
+        </div>
+      </div>
+      <div class="slide-number">01 / 10</div>
+    </section>
+
+    <!-- Slide 2 : Vue d'ensemble architecture -->
+    <section class="slide" id="slide-2">
+      <div class="slide-content">
+        <div class="badge">Architecture</div>
+        <h2>Structure du projet</h2>
+        <p class="slide-desc">
+          Organisation modulaire en 4 blocs fonctionnels, 100% procédural.
+        </p>
+
+        <div class="arch-grid">
+          <div class="arch-card arch-auth">
+            <div class="arch-icon">🔐</div>
+            <h4>Auth</h4>
+            <ul>
+              <li>Inscription</li>
+              <li>Connexion</li>
+              <li>Déconnexion</li>
+              <li>Hash bcrypt</li>
+            </ul>
+          </div>
+          <div class="arch-card arch-qcm">
+            <div class="arch-icon">📝</div>
+            <h4>QCM</h4>
+            <ul>
+              <li>Start (10 questions aléatoires)</li>
+              <li>Question (passage)</li>
+              <li>Process (calcul)</li>
+              <li>Result (correction)</li>
+            </ul>
+          </div>
+          <div class="arch-card arch-anti">
+            <div class="arch-icon">🛡️</div>
+            <h4>Anti-Triche</h4>
+            <ul>
+              <li>Plein écran forcé</li>
+              <li>Timer côté client</li>
+              <li>Detection onglet/focus</li>
+              <li>Flag session unique</li>
+            </ul>
+          </div>
+          <div class="arch-card arch-admin">
+            <div class="arch-icon">⚙️</div>
+            <h4>Admin</h4>
+            <ul>
+              <li>Dashboard stats</li>
+              <li>Gestion utilisateurs</li>
+              <li>CRUD questions</li>
+              <li>Bloquer / Supprimer</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-preview">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">structure/</span>
+          </div>
+          <pre><code>qcm/
+├── auth/           — Connexion, Inscription, Déconnexion
+├── qcm/            — Start, Question, Process, Result, History, Fraud
+├── admin/          — Dashboard, Users, Questions (CRUD)
+├── commun/         — Header, Footer, CSS, JS, DB
+└── database.sql    — 4 tables + 15 questions de test</code></pre>
+        </div>
+      </div>
+      <div class="slide-number">02 / 10</div>
+    </section>
+
+    <!-- Slide 3 : Authentification -->
+    <section class="slide" id="slide-3">
+      <div class="slide-content">
+        <div class="badge badge-success">Sécurité</div>
+        <h2>Système d'authentification</h2>
+        <p class="slide-desc">
+          Inscription, connexion, sessions sécurisées et gestion des rôles.
+        </p>
+
+        <div class="two-col">
+          <div class="col-left">
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-check">✓</div>
+                <div>
+                  <strong>Hash bcrypt</strong>
+                  <p>
+                    Mots de passe jamais stockés en clair.
+                    <code>password_hash()</code> avec algo par défaut.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-check">✓</div>
+                <div>
+                  <strong>Validation des entrées</strong>
+                  <p>
+                    <code>trim()</code>, <code>filter_var(EMAIL)</code>,
+                    <code>htmlspecialchars()</code> sur toutes les sorties.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-check">✓</div>
+                <div>
+                  <strong>Protection injection SQL</strong>
+                  <p>
+                    <code>mysqli_real_escape_string()</code> sur chaque variable
+                    injectée.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-check">✓</div>
+                <div>
+                  <strong>Gestion des rôles</strong>
+                  <p>
+                    Champ <code>role</code> (user/admin) et
+                    <code>statut</code> (actif/bloqué) en base.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-right">
+            <div class="screenshot-frame">
+              <img src="images/login.png" alt="Page de connexion" />
+              <div class="screenshot-label">Page de connexion</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-callout">
+          <span class="demo-icon">▶</span>
+          <span
+            ><strong>Démonstration :</strong> Connexion avec un compte
+            utilisateur</span
+          >
+        </div>
+      </div>
+      <div class="slide-number">03 / 10</div>
+    </section>
+
+    <!-- Slide 4 : Le QCM en action -->
+    <section class="slide" id="slide-4">
+      <div class="slide-content">
+        <div class="badge badge-primary">Fonctionnement</div>
+        <h2>Passage du QCM</h2>
+        <p class="slide-desc">
+          10 questions aléatoires, 10 minutes, une seule tentative possible.
+        </p>
+
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div class="flow-label">Start</div>
+            <div class="flow-desc">
+              Vérifie ≥10 questions<br />SELECT RAND() LIMIT 10<br />Stocke IDs
+              en session
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div class="flow-label">Question</div>
+            <div class="flow-desc">
+              Affiche les 10 questions<br />Timer côté client<br />Plein écran
+              forcé
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div class="flow-label">Process</div>
+            <div class="flow-desc">
+              Calcule le score<br />2 pts par bonne réponse<br />Insère en BDD
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div class="flow-label">Result</div>
+            <div class="flow-desc">
+              Score /20<br />Correction détaillée<br />Couleur succès/échec
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem">
+          <div class="col-left">
+            <div class="code-preview">
+              <div class="code-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="code-filename">qcm/start.php</span>
+              </div>
+              <pre><code>// 10 questions aléatoires
+$sql = "SELECT id FROM questions 
+        ORDER BY RAND() LIMIT 10";
+$result = mysqli_query($conn, $sql);
+
+$_SESSION['qcm_questions'] = $questions_ids;
+$_SESSION['qcm_start_time'] = time();
+
+// Flag unique anti-F5
+$_SESSION['qcm_autorise_chargement'] = true;</code></pre>
+            </div>
+          </div>
+          <div class="col-right">
+            <div class="screenshot-frame">
+              <img src="images/qcm.png" alt="Passage du QCM" />
+              <div class="screenshot-label">Interface de passage</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-callout">
+          <span class="demo-icon">▶</span>
+          <span
+            ><strong>Démonstration :</strong> Lancer un QCM et répondre aux
+            questions</span
+          >
+        </div>
+      </div>
+      <div class="slide-number">04 / 10</div>
+    </section>
+
+    <!-- Slide 5 : Anti-Triche (POINT FORT) -->
+    <section class="slide" id="slide-5">
+      <div class="slide-content">
+        <div class="badge badge-danger">Point Fort Technique</div>
+        <h2>Système Anti-Triche</h2>
+        <p class="slide-desc">
+          La partie la plus technique du projet : 6 mécanismes de surveillance
+          simultanés.
+        </p>
+
+        <div class="anti-grid">
+          <div class="anti-card">
+            <div class="anti-num">01</div>
+            <div class="anti-icon">🖱️</div>
+            <h4>Clic droit bloqué</h4>
+            <p>contextmenu → preventDefault()</p>
+          </div>
+          <div class="anti-card">
+            <div class="anti-num">02</div>
+            <div class="anti-icon">📋</div>
+            <h4>Copier interdit</h4>
+            <p>copy → alerte + blocage</p>
+          </div>
+          <div class="anti-card">
+            <div class="anti-num">03</div>
+            <div class="anti-icon">✏️</div>
+            <h4>Sélection bloquée</h4>
+            <p>selectstart sauf sur INPUT</p>
+          </div>
+          <div class="anti-card">
+            <div class="anti-num">04</div>
+            <div class="anti-icon">🔄</div>
+            <h4>Changement d'onglet</h4>
+            <p>visibilitychange → triche immédiate</p>
+          </div>
+          <div class="anti-card">
+            <div class="anti-num">05</div>
+            <div class="anti-icon">🖥️</div>
+            <h4>Sortie plein écran</h4>
+            <p>1er avertissement, 2ème = 0</p>
+          </div>
+          <div class="anti-card">
+            <div class="anti-num">06</div>
+            <div class="anti-icon">🚫</div>
+            <h4>Anti-F5 côté serveur</h4>
+            <p>Flag session consommé une fois</p>
+          </div>
+        </div>
+
+        <div class="code-preview" style="margin-top: 1.5rem">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">commun/assets/js/anti_triche.js</span>
+          </div>
+          <pre><code>// Détection sortie plein écran
+function handleFullscreenChange() {
+    const isNowInFullscreen = !!(document.fullscreenElement 
+        || document.webkitFullscreenElement);
+
+    if (!isNowInFullscreen && wasInFullscreen && qcmStarted) {
+        fullscreenEscapes++;
+        if (fullscreenEscapes === 1) {
+            showOverlay(); // 1er avertissement
+        } else {
+            window.location.href = 'process.php?cheat=1'; // 0/20
+        }
+    }
+    wasInFullscreen = isNowInFullscreen;
+}</code></pre>
+        </div>
+
+        <div class="demo-callout">
+          <span class="demo-icon">▶</span>
+          <span
+            ><strong>Démonstration :</strong> Quitter le plein écran pendant le
+            QCM</span
+          >
+        </div>
+      </div>
+      <div class="slide-number">05 / 10</div>
+    </section>
+
+    <!-- Slide 6 : Résultats & Historique -->
+    <section class="slide" id="slide-6">
+      <div class="slide-content">
+        <div class="badge badge-primary">Expérience Utilisateur</div>
+        <h2>Résultats & Historique</h2>
+        <p class="slide-desc">
+          Correction détaillée immédiate et suivi de progression sur le long
+          terme.
+        </p>
+
+        <div class="two-col">
+          <div class="col-left">
+            <h3 class="section-subtitle">🎯 Page de résultats</h3>
+            <ul class="check-list">
+              <li>Score sur 20 avec message personnalisé</li>
+              <li>Correction détaillée question par question</li>
+              <li>Bordure verte si bonne réponse, rouge si fausse</li>
+              <li>
+                Bonne réponse affichée uniquement si l'utilisateur s'est trompé
+              </li>
+            </ul>
+            <div class="code-preview mini">
+              <pre><code>// Score dynamique avec classes CSS
+&lt;h1 class="&lt;?php echo $score >= 10 
+    ? 'text-success' : 'text-danger'; ?&gt;"&gt;
+    &lt;?php echo $score; ?&gt; / 20
+&lt;/h1&gt;</code></pre>
+            </div>
+          </div>
+          <div class="col-right">
+            <div class="screenshot-frame">
+              <img src="images/resultats.png" alt="Page de résultats" />
+              <div class="screenshot-label">Résultats détaillés</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem">
+          <div class="col-left">
+            <div class="screenshot-frame">
+              <img src="images/historique.png" alt="Historique" />
+              <div class="screenshot-label">Historique personnel</div>
+            </div>
+          </div>
+          <div class="col-right">
+            <h3 class="section-subtitle">📚 Historique</h3>
+            <ul class="check-list">
+              <li>Tableau de toutes les tentatives</li>
+              <li>Moyenne générale calculée en temps réel</li>
+              <li>Numérotation décroissante des tentatives</li>
+              <li>Date, heure, score et statut (Réussi/Échoué)</li>
+            </ul>
+            <div class="code-preview mini">
+              <pre><code>$sql_moyenne = "SELECT AVG(score) as moyenne, 
+    COUNT(*) as total 
+    FROM tentatives 
+    WHERE utilisateur_id = $id";</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-callout">
+          <span class="demo-icon">▶</span>
+          <span
+            ><strong>Démonstration :</strong> Consulter la correction et
+            l'historique</span
+          >
+        </div>
+      </div>
+      <div class="slide-number">06 / 10</div>
+    </section>
+
+    <!-- Slide 7 : Panel Admin -->
+    <section class="slide" id="slide-7">
+      <div class="slide-content">
+        <div class="badge badge-accent">Administration</div>
+        <h2>Panel Administrateur</h2>
+        <p class="slide-desc">
+          Gestion complète des utilisateurs et des questions en temps réel.
+        </p>
+
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-users">—</div>
+            <div class="stat-label">Utilisateurs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-questions">—</div>
+            <div class="stat-label">Questions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-tentatives">—</div>
+            <div class="stat-label">Tentatives</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-moyenne">—</div>
+            <div class="stat-label">Moyenne globale</div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem">
+          <div class="col-left">
+            <h3 class="section-subtitle">👥 Gestion des utilisateurs</h3>
+            <ul class="check-list">
+              <li>Liste complète avec rôle et statut</li>
+              <li>Bloquer / Débloquer un compte</li>
+              <li>Suppression avec confirmation JS</li>
+              <li>Auto-protection : l'admin ne peut pas se supprimer</li>
+            </ul>
+            <div class="code-preview mini">
+              <pre><code>// Protection auto-suppression
+if ($id != $_SESSION['utilisateur_id']) {
+    if ($action === 'bloquer') { ... }
+    if ($action === 'supprimer') { ... }
+}</code></pre>
+            </div>
+          </div>
+          <div class="col-right">
+            <h3 class="section-subtitle">📝 Gestion des questions</h3>
+            <ul class="check-list">
+              <li>CRUD complet (Create, Read, Update, Delete)</li>
+              <li>Catégorisation des questions</li>
+              <li>Sélection de la bonne réponse via dropdown</li>
+              <li>Validation côté serveur de tous les champs</li>
+            </ul>
+            <div class="code-preview mini">
+              <pre><code>// Validation stricte
+if (empty($question) || empty($r1) || 
+    empty($r2) || empty($r3) || empty($r4) 
+    || $bonne_reponse < 1 || $bonne_reponse > 4) {
+    $erreur = "Tous les champs obligatoires.";
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-callout">
+          <span class="demo-icon">▶</span>
+          <span
+            ><strong>Démonstration :</strong> Dashboard admin, bloquer un
+            utilisateur, ajouter une question</span
+          >
+        </div>
+      </div>
+      <div class="slide-number">07 / 10</div>
+    </section>
+
+    <!-- Slide 8 : Design & CSS -->
+    <section class="slide" id="slide-8">
+      <div class="slide-content">
+        <div class="badge badge-success">UI/UX</div>
+        <h2>Design & Expérience Utilisateur</h2>
+        <p class="slide-desc">
+          Un design premium entièrement réalisé en CSS Vanilla avec variables
+          CSS et animations.
+        </p>
+
+        <div class="design-showcase">
+          <div class="design-card">
+            <div
+              class="design-preview"
+              style="background: linear-gradient(135deg, #2563eb, #3b82f6)"
+            >
+              <span>🎨</span>
+            </div>
+            <h4>Variables CSS</h4>
+            <p>
+              Palette cohérente sur tout le site : indigo, sky, emerald, rose.
+              Facilement modifiable.
+            </p>
+          </div>
+          <div class="design-card">
+            <div
+              class="design-preview"
+              style="background: linear-gradient(135deg, #059669, #10b981)"
+            >
+              <span>📱</span>
+            </div>
+            <h4>Responsive</h4>
+            <p>
+              Media queries pour mobile, flexbox et grid partout. Navigation
+              adaptative.
+            </p>
+          </div>
+          <div class="design-card">
+            <div
+              class="design-preview"
+              style="background: linear-gradient(135deg, #dc2626, #ef4444)"
+            >
+              <span>✨</span>
+            </div>
+            <h4>Animations</h4>
+            <p>
+              Hover sur les cartes, transitions fluides, fade-in sur la page
+              d'accueil.
+            </p>
+          </div>
+          <div class="design-card">
+            <div
+              class="design-preview"
+              style="background: linear-gradient(135deg, #7c3aed, #8b5cf6)"
+            >
+              <span>🎯</span>
+            </div>
+            <h4>Utilitaires CSS</h4>
+            <p>
+              Classes utilitaires maison : .mt-1 à .mt-8, .text-center, etc.
+            </p>
+          </div>
+        </div>
+
+        <div class="code-preview" style="margin-top: 1.5rem">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename"
+              >commun/assets/css/style.css — Extrait</span
+            >
+          </div>
+          <pre><code>:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #0ea5e9;
+    --accent-color: #f43f5e;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --radius-lg: 1rem;
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}</code></pre>
+        </div>
+      </div>
+      <div class="slide-number">08 / 10</div>
+    </section>
+
+    <!-- Slide 9 : Sécurité & Bonnes Pratiques -->
+    <section class="slide" id="slide-9">
+      <div class="slide-content">
+        <div class="badge badge-danger">Sécurité</div>
+        <h2>Sécurité & Bonnes Pratiques</h2>
+        <p class="slide-desc">
+          Chaque page est protégée, chaque entrée est validée, chaque session
+          est vérifiée.
+        </p>
+
+        <div class="security-grid">
+          <div class="sec-card">
+            <div class="sec-icon">🔒</div>
+            <h4>Sessions sécurisées</h4>
+            <p>
+              Vérification <code>session_status()</code> sur chaque page.
+              Redirection si non connecté. Rôle vérifié pour l'admin.
+            </p>
+          </div>
+          <div class="sec-card">
+            <div class="sec-icon">🛡️</div>
+            <h4>Anti-injection SQL</h4>
+            <p>
+              <code>mysqli_real_escape_string()</code> sur toutes les variables
+              utilisateur. Casting explicite des IDs avec <code>(int)</code>.
+            </p>
+          </div>
+          <div class="sec-card">
+            <div class="sec-icon">🧼</div>
+            <h4>XSS Protection</h4>
+            <p>
+              <code>htmlspecialchars()</code> systématique sur les données
+              affichées. Jamais d'<code>echo</code> brut.
+            </p>
+          </div>
+          <div class="sec-card">
+            <div class="sec-icon">🚫</div>
+            <h4>Accès direct bloqué</h4>
+            <p>
+              Pages QCM protégées par flags de session.
+              <code>fraud.php</code> inaccessible sans flag de triche.
+            </p>
+          </div>
+          <div class="sec-card">
+            <div class="sec-icon">⏱️</div>
+            <h4>Timer double</h4>
+            <p>
+              Timer côté client (JS) + vérification côté serveur (PHP).
+              Impossible de tricher sur le temps.
+            </p>
+          </div>
+          <div class="sec-card">
+            <div class="sec-icon">🔄</div>
+            <h4>Déconnexion propre</h4>
+            <p>
+              Destruction complète de la session + suppression du cookie côté
+              client.
+            </p>
+          </div>
+        </div>
+
+        <div class="code-preview" style="margin-top: 1.5rem">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">auth/deconnexion.php</span>
+          </div>
+          <pre><code>$_SESSION = array();
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
+session_destroy();</code></pre>
+        </div>
+      </div>
+      <div class="slide-number">09 / 10</div>
+    </section>
+
+    <!-- Slide 10 : Conclusion -->
+    <section class="slide" id="slide-10">
+      <div class="slide-content">
+        <div class="badge badge-accent">Conclusion</div>
+        <h2>Ce que nous avons appris</h2>
+        <p class="slide-desc">
+          Un projet complet qui couvre l'ensemble du cycle de développement web.
+        </p>
+
+        <div class="conclusion-grid">
+          <div class="conc-card">
+            <div class="conc-num">01</div>
+            <div>
+              <h4>Architecture procédurale</h4>
+              <p>
+                Organiser un projet en modules fonctionnels sans recourir à la
+                POO, en respectant les séparations de responsabilités.
+              </p>
+            </div>
+          </div>
+          <div class="conc-card">
+            <div class="conc-num">02</div>
+            <div>
+              <h4>Sécurité en profondeur</h4>
+              <p>
+                Protéger chaque couche : validation des entrées, échappement des
+                sorties, gestion des sessions, contrôle d'accès.
+              </p>
+            </div>
+          </div>
+          <div class="conc-card">
+            <div class="conc-num">03</div>
+            <div>
+              <h4>JavaScript avancé</h4>
+              <p>
+                API Fullscreen, gestion des événements du navigateur,
+                synchronisation client/serveur pour l'anti-triche.
+              </p>
+            </div>
+          </div>
+          <div class="conc-card">
+            <div class="conc-num">04</div>
+            <div>
+              <h4>Design systématique</h4>
+              <p>
+                Créer un design cohérent et maintenable avec des variables CSS
+                et des classes utilitaires.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="final-message">
+          <h3>Merci de votre attention</h3>
+          <p>Des questions ?</p>
+        </div>
+
+        <div class="final-links">
+          <a
+            href="https://github.com/billalatb-coder/QcmProjet"
+            target="_blank"
+            class="final-link"
+          >
+            <span>📁</span> github.com/billalatb-coder/QcmProjet
+          </a>
+        </div>
+      </div>
+      <div class="slide-number">10 / 10</div>
+    </section>
+
+    <!-- Contrôles de navigation -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)">
+        ← Précédent
+      </button>
+      <div class="nav-dots" id="nav-dots"></div>
+      <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">
+        Suivant →
+      </button>
+    </div>
+
+    <script>
+      /* ============================================
+   QCM PRO — SOUTENANCE NAVIGATION
+   ============================================ */
+
+      let currentSlide = 1;
+      const totalSlides = 10;
+      let presentationTimer = null;
+      let secondsElapsed = 0;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        createNavDots();
+        updateSlide();
+        startTimer();
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === " ") {
+            e.preventDefault();
+            changeSlide(1);
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            changeSlide(-1);
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            goToSlide(1);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            goToSlide(totalSlides);
+          }
+        });
+      });
+
+      function createNavDots() {
+        const dotsContainer = document.getElementById("nav-dots");
+        for (let i = 1; i <= totalSlides; i++) {
+          const dot = document.createElement("button");
+          dot.className = "nav-dot" + (i === 1 ? " active" : "");
+          dot.onclick = () => goToSlide(i);
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 1 && newSlide <= totalSlides) {
+          goToSlide(newSlide);
+        }
+      }
+
+      function goToSlide(n) {
+        document
+          .getElementById("slide-" + currentSlide)
+          .classList.remove("active");
+        currentSlide = n;
+        document
+          .getElementById("slide-" + currentSlide)
+          .classList.add("active");
+        updateSlide();
+      }
+
+      function updateSlide() {
+        document.querySelectorAll(".nav-dot").forEach((dot, i) => {
+          dot.classList.toggle("active", i + 1 === currentSlide);
+        });
+
+        document.getElementById("prev-btn").disabled = currentSlide === 1;
+        document.getElementById("next-btn").disabled =
+          currentSlide === totalSlides;
+
+        const progress = (currentSlide / totalSlides) * 100;
+        document.getElementById("progress-bar").style.width = progress + "%";
+
+        if (currentSlide === 7) {
+          animateStats();
+        }
+      }
+
+      function startTimer() {
+        const timerEl = document.getElementById("nav-timer");
+        presentationTimer = setInterval(() => {
+          secondsElapsed++;
+          const mins = Math.floor(secondsElapsed / 60);
+          const secs = secondsElapsed % 60;
+          timerEl.textContent =
+            String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+
+          if (secondsElapsed === 480) {
+            timerEl.style.color = "#d97706";
+          }
+          if (secondsElapsed === 540) {
+            timerEl.style.color = "#dc2626";
+          }
+        }, 1000);
+      }
+
+      function animateStats() {
+        const stats = [
+          { id: "stat-users", target: 12, suffix: "" },
+          { id: "stat-questions", target: 15, suffix: "" },
+          { id: "stat-tentatives", target: 47, suffix: "" },
+          { id: "stat-moyenne", target: 11.5, suffix: "/20", decimals: 1 },
+        ];
+
+        stats.forEach((s) => {
+          const el = document.getElementById(s.id);
+          if (!el) return;
+          let current = 0;
+          const increment = s.target / 30;
+          const interval = setInterval(() => {
+            current += increment;
+            if (current >= s.target) {
+              current = s.target;
+              clearInterval(interval);
+            }
+            const display = s.decimals
+              ? current.toFixed(s.decimals)
+              : Math.floor(current);
+            el.textContent = display + (s.suffix || "");
+          }, 30);
+        });
+      }
+    </script>
+  </body>
+</html>
