@@ -1,6 +1,8 @@
 <?php
 require_once '../commun/includes/db.php';
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['utilisateur_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: /qcm/index.php");
@@ -9,9 +11,9 @@ if (!isset($_SESSION['utilisateur_id']) || $_SESSION['role'] !== 'admin') {
 
 // Traitement des actions (Bloquer, Débloquer, Supprimer)
 if (isset($_GET['action']) && isset($_GET['id'])) {
-    $id = (int)$_GET['id'];
+    $id = (int) $_GET['id'];
     $action = $_GET['action'];
-    
+
     // On empêche l'admin de se modifier lui-même
     if ($id != $_SESSION['utilisateur_id']) {
         if ($action === 'bloquer') {
@@ -19,9 +21,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         } elseif ($action === 'debloquer') {
             mysqli_query($conn, "UPDATE utilisateurs SET statut = 'actif' WHERE id = $id");
         } elseif ($action === 'supprimer') {
-            // Suppression en cascade théorique (ou via BDD). Ici on supprime d'abord les réponses
-            // Pour simplifier et respecter le code procédural basique :
-            // (La vraie bonne pratique serait d'utiliser ON DELETE CASCADE dans la BDD)
+
             mysqli_query($conn, "DELETE FROM utilisateurs WHERE id = $id");
         }
     }
@@ -56,31 +56,35 @@ require_once '../commun/includes/header.php';
                 </tr>
             </thead>
             <tbody>
-                <?php while ($user = mysqli_fetch_assoc($result)) : ?>
-                <tr>
-                    <td><?php echo $user['id']; ?></td>
-                    <td><?php echo htmlspecialchars($user['nom']); ?></td>
-                    <td><?php echo htmlspecialchars($user['prenom']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo $user['role'] === 'admin' ? '<span class="user-badge text-accent">Admin</span>' : 'Utilisateur'; ?></td>
-                    <td>
-                        <?php if ($user['statut'] === 'actif') : ?>
-                            <span class="text-success fw-bold">Actif</span>
-                        <?php else : ?>
-                            <span class="text-danger fw-bold">Bloqué</span>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ($user['id'] != $_SESSION['utilisateur_id']) : ?>
-                            <?php if ($user['statut'] === 'actif') : ?>
-                                <a href="users.php?action=bloquer&id=<?php echo $user['id']; ?>" class="btn btn-outline btn-sm">Bloquer</a>
-                            <?php else : ?>
-                                <a href="users.php?action=debloquer&id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Débloquer</a>
+                <?php while ($user = mysqli_fetch_assoc($result)): ?>
+                    <tr>
+                        <td><?php echo $user['id']; ?></td>
+                        <td><?php echo htmlspecialchars($user['nom']); ?></td>
+                        <td><?php echo htmlspecialchars($user['prenom']); ?></td>
+                        <td><?php echo htmlspecialchars($user['email']); ?></td>
+                        <td><?php echo $user['role'] === 'admin' ? '<span class="user-badge text-accent">Admin</span>' : 'Utilisateur'; ?>
+                        </td>
+                        <td>
+                            <?php if ($user['statut'] === 'actif'): ?>
+                                <span class="text-success fw-bold">Actif</span>
+                            <?php else: ?>
+                                <span class="text-danger fw-bold">Bloqué</span>
                             <?php endif; ?>
-                            <a href="users.php?action=supprimer&id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
-                        <?php endif; ?>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <?php if ($user['id'] != $_SESSION['utilisateur_id']): ?>
+                                <?php if ($user['statut'] === 'actif'): ?>
+                                    <a href="users.php?action=bloquer&id=<?php echo $user['id']; ?>"
+                                        class="btn btn-outline btn-sm">Bloquer</a>
+                                <?php else: ?>
+                                    <a href="users.php?action=debloquer&id=<?php echo $user['id']; ?>"
+                                        class="btn btn-primary btn-sm">Débloquer</a>
+                                <?php endif; ?>
+                                <a href="users.php?action=supprimer&id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>

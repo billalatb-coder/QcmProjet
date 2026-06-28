@@ -39,6 +39,11 @@ CREATE TABLE IF NOT EXISTS reponses (
     correcte BOOLEAN NOT NULL
 );
 
+-- Insertion admin par defaut (mdp: admin123)
+INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role) VALUES 
+('Admin', 'Super', 'admin@qcm.local', '$2y$10$eE0o9Yk0.G3sR2Fv5C5w3uBw.N1t9.T4Fh7z4fP8vR6w1sX8/yv0a', 'admin');
+
+
 -- Insertion des 100 questions
 INSERT INTO questions (question, reponse1, reponse2, reponse3, reponse4, bonne_reponse, categorie) VALUES
 -- Insolite & Mind-blowing (1-15)
