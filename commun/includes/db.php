@@ -2,7 +2,7 @@
 // Paramètres de connexion
 $db_host = 'localhost';
 $db_user = 'root';
-$db_pass = ''; // Pour WAMP
+$db_pass = 'root';
 $db_name = 'qcm_app';
 
 // Connexion procédurale avec mysqli (PAS DE PDO selon le cahier des charges)
