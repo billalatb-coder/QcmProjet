@@ -2,7 +2,7 @@
 // Paramètres de connexion
 $db_host = 'localhost';
 $db_user = 'root';
-$db_pass = 'root'; // Mot de passe MAMP par defaut
+$db_pass = 'root'; // Pour MAMP
 $db_name = 'qcm_app';
 
 // Connexion procédurale avec mysqli (PAS DE PDO selon le cahier des charges)

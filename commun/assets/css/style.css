@@ -450,7 +450,7 @@ a:hover {
     color: var(--primary-color);
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .nav-content {
         flex-direction: column;

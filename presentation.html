@@ -1028,39 +1028,31 @@
     <!-- Slide 1 : Accroche -->
     <section class="slide active" id="slide-1">
       <div class="slide-content">
-        <div class="badge badge-accent">Soutenance Projet Web — ECE Paris</div>
+        <div class="badge badge-accent">Soutenance Projet Techno</div>
         <h1 class="hero-title">
           <span class="gradient-text">QCM Pro</span>
-          <span class="subtitle"
-            >Plateforme d'évaluation en ligne sécurisée</span
-          >
+          <span class="subtitle">Plateforme d'évaluation en ligne </span>
         </h1>
-        <p class="hero-desc">
-          Un système complet de QCM avec authentification, anti-triche en temps
-          réel, historique personnel et administration centralisée.
-        </p>
+
         <div class="team-grid">
           <div class="team-card">
-            <div class="team-avatar">A</div>
             <div class="team-name">Arezki</div>
             <div class="team-role">Auth & Sécurité</div>
           </div>
           <div class="team-card">
-            <div class="team-avatar">R</div>
             <div class="team-name">Aris</div>
             <div class="team-role">Admin & Design CSS</div>
           </div>
           <div class="team-card">
-            <div class="team-avatar">B</div>
             <div class="team-name">Billal</div>
             <div class="team-role">QCM, Anti-Triche, Résultats</div>
           </div>
         </div>
         <div class="tech-stack">
-          <span class="tech-badge">PHP Vanilla</span>
+          <span class="tech-badge">PHP </span>
           <span class="tech-badge">MySQL</span>
-          <span class="tech-badge">JavaScript Vanilla</span>
-          <span class="tech-badge">CSS3 Variables</span>
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">CSS3 </span>
         </div>
       </div>
       <div class="slide-number">01 / 10</div>
@@ -1071,9 +1063,6 @@
       <div class="slide-content">
         <div class="badge">Architecture</div>
         <h2>Structure du projet</h2>
-        <p class="slide-desc">
-          Organisation modulaire en 4 blocs fonctionnels, 100% procédural.
-        </p>
 
         <div class="arch-grid">
           <div class="arch-card arch-auth">
@@ -1101,9 +1090,9 @@
             <h4>Anti-Triche</h4>
             <ul>
               <li>Plein écran forcé</li>
-              <li>Timer côté client</li>
-              <li>Detection onglet/focus</li>
-              <li>Flag session unique</li>
+              <li>Test chronometré</li>
+              <li>Detection de changement d'onglet</li>
+              <li>bloque copier/coller</li>
             </ul>
           </div>
           <div class="arch-card arch-admin">
@@ -1128,9 +1117,9 @@
           <pre><code>qcm/
 ├── auth/           — Connexion, Inscription, Déconnexion
 ├── qcm/            — Start, Question, Process, Result, History, Fraud
-├── admin/          — Dashboard, Users, Questions (CRUD)
+├── admin/          — Dashboard, Users, Questions 
 ├── commun/         — Header, Footer, CSS, JS, DB
-└── database.sql    — 4 tables + 15 questions de test</code></pre>
+└── database.sql    — 4 tables + 100 questions</code></pre>
         </div>
       </div>
       <div class="slide-number">02 / 10</div>
@@ -1192,7 +1181,7 @@
           </div>
           <div class="col-right">
             <div class="screenshot-frame">
-              <img src="images/login.png" alt="Page de connexion" />
+              <img src="./uploads/PageCnx.png" alt="Page de connexion" />
               <div class="screenshot-label">Page de connexion</div>
             </div>
           </div>
@@ -1277,7 +1266,7 @@ $_SESSION['qcm_autorise_chargement'] = true;</code></pre>
           </div>
           <div class="col-right">
             <div class="screenshot-frame">
-              <img src="images/qcm.png" alt="Passage du QCM" />
+              <img src="./uploads/passage-qcm.png" alt="Passage du QCM" />
               <div class="screenshot-label">Interface de passage</div>
             </div>
           </div>
@@ -1297,37 +1286,28 @@ $_SESSION['qcm_autorise_chargement'] = true;</code></pre>
     <!-- Slide 5 : Anti-Triche (POINT FORT) -->
     <section class="slide" id="slide-5">
       <div class="slide-content">
-        <div class="badge badge-danger">Point Fort Technique</div>
         <h2>Système Anti-Triche</h2>
-        <p class="slide-desc">
-          La partie la plus technique du projet : 6 mécanismes de surveillance
-          simultanés.
-        </p>
 
         <div class="anti-grid">
           <div class="anti-card">
             <div class="anti-num">01</div>
             <div class="anti-icon">🖱️</div>
             <h4>Clic droit bloqué</h4>
-            <p>contextmenu → preventDefault()</p>
           </div>
           <div class="anti-card">
             <div class="anti-num">02</div>
             <div class="anti-icon">📋</div>
             <h4>Copier interdit</h4>
-            <p>copy → alerte + blocage</p>
           </div>
           <div class="anti-card">
             <div class="anti-num">03</div>
             <div class="anti-icon">✏️</div>
             <h4>Sélection bloquée</h4>
-            <p>selectstart sauf sur INPUT</p>
           </div>
           <div class="anti-card">
             <div class="anti-num">04</div>
             <div class="anti-icon">🔄</div>
             <h4>Changement d'onglet</h4>
-            <p>visibilitychange → triche immédiate</p>
           </div>
           <div class="anti-card">
             <div class="anti-num">05</div>
@@ -1339,7 +1319,6 @@ $_SESSION['qcm_autorise_chargement'] = true;</code></pre>
             <div class="anti-num">06</div>
             <div class="anti-icon">🚫</div>
             <h4>Anti-F5 côté serveur</h4>
-            <p>Flag session consommé une fois</p>
           </div>
         </div>
 
@@ -1365,14 +1344,6 @@ function handleFullscreenChange() {
     }
     wasInFullscreen = isNowInFullscreen;
 }</code></pre>
-        </div>
-
-        <div class="demo-callout">
-          <span class="demo-icon">▶</span>
-          <span
-            ><strong>Démonstration :</strong> Quitter le plein écran pendant le
-            QCM</span
-          >
         </div>
       </div>
       <div class="slide-number">05 / 10</div>
@@ -1409,7 +1380,7 @@ function handleFullscreenChange() {
           </div>
           <div class="col-right">
             <div class="screenshot-frame">
-              <img src="images/resultats.png" alt="Page de résultats" />
+              <img src="./uploads/resultat.png" alt="Page de résultats" />
               <div class="screenshot-label">Résultats détaillés</div>
             </div>
           </div>
@@ -1418,7 +1389,7 @@ function handleFullscreenChange() {
         <div class="two-col" style="margin-top: 2.5rem">
           <div class="col-left">
             <div class="screenshot-frame">
-              <img src="images/historique.png" alt="Historique" />
+              <img src="./uploads/hostorique.png" alt="Historique" />
               <div class="screenshot-label">Historique personnel</div>
             </div>
           </div>
@@ -1498,10 +1469,8 @@ if ($id != $_SESSION['utilisateur_id']) {
           <div class="col-right">
             <h3 class="section-subtitle">📝 Gestion des questions</h3>
             <ul class="check-list">
-              <li>CRUD complet (Create, Read, Update, Delete)</li>
-              <li>Catégorisation des questions</li>
-              <li>Sélection de la bonne réponse via dropdown</li>
-              <li>Validation côté serveur de tous les champs</li>
+              <li>Créer, Lire, Mettre à jour et Supprimer les questions</li>
+              <li>Bloquer ou Supprimer un utilisateur</li>
             </ul>
             <div class="code-preview mini">
               <pre><code>// Validation stricte
@@ -1530,25 +1499,8 @@ if (empty($question) || empty($r1) ||
       <div class="slide-content">
         <div class="badge badge-success">UI/UX</div>
         <h2>Design & Expérience Utilisateur</h2>
-        <p class="slide-desc">
-          Un design premium entièrement réalisé en CSS Vanilla avec variables
-          CSS et animations.
-        </p>
 
         <div class="design-showcase">
-          <div class="design-card">
-            <div
-              class="design-preview"
-              style="background: linear-gradient(135deg, #2563eb, #3b82f6)"
-            >
-              <span>🎨</span>
-            </div>
-            <h4>Variables CSS</h4>
-            <p>
-              Palette cohérente sur tout le site : indigo, sky, emerald, rose.
-              Facilement modifiable.
-            </p>
-          </div>
           <div class="design-card">
             <div
               class="design-preview"
@@ -1557,10 +1509,6 @@ if (empty($question) || empty($r1) ||
               <span>📱</span>
             </div>
             <h4>Responsive</h4>
-            <p>
-              Media queries pour mobile, flexbox et grid partout. Navigation
-              adaptative.
-            </p>
           </div>
           <div class="design-card">
             <div
@@ -1570,10 +1518,6 @@ if (empty($question) || empty($r1) ||
               <span>✨</span>
             </div>
             <h4>Animations</h4>
-            <p>
-              Hover sur les cartes, transitions fluides, fade-in sur la page
-              d'accueil.
-            </p>
           </div>
           <div class="design-card">
             <div
@@ -1583,9 +1527,6 @@ if (empty($question) || empty($r1) ||
               <span>🎯</span>
             </div>
             <h4>Utilitaires CSS</h4>
-            <p>
-              Classes utilitaires maison : .mt-1 à .mt-8, .text-center, etc.
-            </p>
           </div>
         </div>
 
@@ -1620,10 +1561,6 @@ if (empty($question) || empty($r1) ||
       <div class="slide-content">
         <div class="badge badge-danger">Sécurité</div>
         <h2>Sécurité & Bonnes Pratiques</h2>
-        <p class="slide-desc">
-          Chaque page est protégée, chaque entrée est validée, chaque session
-          est vérifiée.
-        </p>
 
         <div class="security-grid">
           <div class="sec-card">
@@ -1699,56 +1636,92 @@ session_destroy();</code></pre>
 
     <!-- Slide 10 : Conclusion -->
     <section class="slide" id="slide-10">
-      <div class="slide-content">
-        <div class="badge badge-accent">Conclusion</div>
-        <h2>Ce que nous avons appris</h2>
-        <p class="slide-desc">
-          Un projet complet qui couvre l'ensemble du cycle de développement web.
-        </p>
+      <style>
+        #slide-10 {
+          background-color: #ffffff !important; /* Arrière-plan blanc simple comme demandé */
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          height: 100% !important;
+          width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          box-sizing: border-box !important;
+        }
 
-        <div class="conclusion-grid">
-          <div class="conc-card">
-            <div class="conc-num">01</div>
-            <div>
-              <h4>Architecture procédurale</h4>
-              <p>
-                Organiser un projet en modules fonctionnels sans recourir à la
-                POO, en respectant les séparations de responsabilités.
-              </p>
-            </div>
-          </div>
-          <div class="conc-card">
-            <div class="conc-num">02</div>
-            <div>
-              <h4>Sécurité en profondeur</h4>
-              <p>
-                Protéger chaque couche : validation des entrées, échappement des
-                sorties, gestion des sessions, contrôle d'accès.
-              </p>
-            </div>
-          </div>
-          <div class="conc-card">
-            <div class="conc-num">03</div>
-            <div>
-              <h4>JavaScript avancé</h4>
-              <p>
-                API Fullscreen, gestion des événements du navigateur,
-                synchronisation client/serveur pour l'anti-triche.
-              </p>
-            </div>
-          </div>
-          <div class="conc-card">
-            <div class="conc-num">04</div>
-            <div>
-              <h4>Design systématique</h4>
-              <p>
-                Créer un design cohérent et maintenable avec des variables CSS
-                et des classes utilitaires.
-              </p>
-            </div>
-          </div>
-        </div>
+        #slide-10 .content-wrapper-final {
+          display: flex !important;
+          flex-direction: row !important; /* Aligne le texte et le lien côte à côte */
+          align-items: center !important;
+          gap: 40px !important; /* Espace entre le texte et le lien */
+          max-width: 90% !important;
+          box-sizing: border-box !important;
+        }
 
+        /* Style du texte (gauche) */
+        #slide-10 .final-message {
+          text-align: left !important;
+        }
+
+        #slide-10 .final-message h3 {
+          font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif !important;
+          font-size: 2.2rem !important;
+          font-weight: 700 !important;
+          color: #0c1a30 !important; /* Bleu très foncé/noir de votre capture */
+          margin: 0 0 10px 0 !important;
+          padding: 0 !important;
+          line-height: 1.2 !important;
+        }
+
+        #slide-10 .final-message p {
+          font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif !important;
+          font-size: 1.3rem !important;
+          color: #5f6368 !important; /* Gris de la capture */
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        /* Style du lien GitHub (droite) */
+        #slide-10 .final-links {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        #slide-10 .final-link {
+          display: flex !important;
+          align-items: center !important;
+          gap: 12px !important;
+          background-color: #ffffff !important;
+          border: 1px solid #dadce0 !important;
+          border-radius: 10px !important;
+          padding: 14px 24px !important;
+          text-decoration: none !important;
+          color: #4a5568 !important;
+          font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif !important;
+          font-size: 1rem !important;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;
+          transition: all 0.2s ease !important;
+        }
+
+        /* Effet au survol du lien */
+        #slide-10 .final-link:hover {
+          background-color: #f8f9fa !important;
+          border-color: #bcc1c8 !important;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        #slide-10 .final-link span {
+          font-size: 1.2rem !important;
+        }
+      </style>
+
+      <div class="content-wrapper-final">
         <div class="final-message">
           <h3>Merci de votre attention</h3>
           <p>Des questions ?</p>
@@ -1764,7 +1737,6 @@ session_destroy();</code></pre>
           </a>
         </div>
       </div>
-      <div class="slide-number">10 / 10</div>
     </section>
 
     <!-- Contrôles de navigation -->
