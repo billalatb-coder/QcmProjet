@@ -1,6 +1,6 @@
 <?php
 require_once '../commun/includes/db.php';
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+session_start();
 
 // Si pas connecté, on redirige vers la connexion
 if (!isset($_SESSION['utilisateur_id'])) {
@@ -21,7 +21,8 @@ if (!isset($_SESSION['qcm_questions'])) {
 
 $utilisateur_id = $_SESSION['utilisateur_id'];
 $duree = time() - $_SESSION['qcm_start_time'];
-if ($duree > 600) $duree = 600;
+if ($duree > 600)
+    $duree = 600;
 
 $questions_ids = $_SESSION['qcm_questions'];
 $reponses_user = $_POST['reponses'] ?? [];
@@ -35,22 +36,22 @@ $is_canceled = isset($_GET['cancel']) && $_GET['cancel'] == 1;
 $is_cheated = isset($_GET['cheat']) && $_GET['cheat'] == 1;
 
 if ($is_canceled || $is_cheated) {
-    // Score 0 direct
+
     $score = 0;
-    
+
     // Insertion de la tentative pour obtenir son ID (Score 0)
     $date = date('Y-m-d H:i:s');
     $sql_tentative = "INSERT INTO tentatives (utilisateur_id, score, date, duree) VALUES ($utilisateur_id, 0, '$date', $duree)";
     mysqli_query($conn, $sql_tentative);
     $tentative_id = mysqli_insert_id($conn);
-    
-    // Remplir les détails avec un message spécial
+
+
     $message = $is_canceled ? "Tentative annulée par l'utilisateur." : "Triche détectée (Changement d'onglet ou plein écran quitté plusieurs fois).";
-    
+
     foreach ($questions_ids as $qid) {
         // Insertion réponse fausse
         mysqli_query($conn, "INSERT INTO reponses (tentative_id, question_id, reponse_utilisateur, correcte) VALUES ($tentative_id, $qid, 0, 0)");
-        
+
         $sql = "SELECT * FROM questions WHERE id = $qid";
         $q = mysqli_fetch_assoc(mysqli_query($conn, $sql));
         $details_correction[] = [
@@ -72,19 +73,19 @@ if ($is_canceled || $is_cheated) {
         $sql = "SELECT * FROM questions WHERE id = $qid";
         $result = mysqli_query($conn, $sql);
         $q = mysqli_fetch_assoc($result);
-        
-        $rep_user = $reponses_user[$qid] ?? 0;
+
+        $rep_user = $reponses_user[$qid];  //...
         $est_correcte = ($rep_user == $q['bonne_reponse']) ? 1 : 0;
-        
+
         if ($est_correcte) {
-            $score += 2; // Chaque bonne réponse vaut 2 points (10 questions -> sur 20)
+            $score += 2;
         }
-        
+
         // Insertion de la réponse en BDD
         $sql_rep = "INSERT INTO reponses (tentative_id, question_id, reponse_utilisateur, correcte) 
                     VALUES ($tentative_id, $qid, $rep_user, $est_correcte)";
         mysqli_query($conn, $sql_rep);
-        
+
         // Stockage en session pour l'affichage immédiat
         $details_correction[] = [
             'question' => $q['question'],
@@ -102,8 +103,7 @@ if ($is_canceled || $is_cheated) {
 $_SESSION['qcm_score'] = $score;
 $_SESSION['qcm_details'] = $details_correction;
 
-// Si c'est une fraude, on marque la session AVANT de nettoyer
-// Cela permet à fraud.php de rester visible même si la page est rechargée
+
 if ($is_cheated) {
     $_SESSION['qcm_fraud'] = true;
 }

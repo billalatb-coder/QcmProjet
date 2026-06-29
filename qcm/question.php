@@ -1,6 +1,8 @@
 <?php
 require_once '../commun/includes/db.php';
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['utilisateur_id'])) {
     header("Location: /qcm/auth/connexion.php");
@@ -61,30 +63,32 @@ require_once '../commun/includes/header.php';
 <div class="container" id="qcm-container" style="display: none;">
     <div class="qcm-header qcm-header-sticky">
         <h2>Test en cours...</h2>
-        <div class="timer">Temps restant : <span id="time-display"><?php echo gmdate("i:s", $time_remaining); ?></span></div>
+        <div class="timer">Temps restant : <span id="time-display"><?php echo gmdate("i:s", $time_remaining); ?></span>
+        </div>
     </div>
 
     <form method="POST" action="process.php" id="qcm-form">
-        <?php foreach ($questions_ordered as $index => $question) : ?>
+        <?php foreach ($questions_ordered as $index => $question): ?>
             <div class="question-card">
-                <h3 class="question-text">Question <?php echo $index + 1; ?> : <?php echo htmlspecialchars($question['question']); ?></h3>
-                
+                <h3 class="question-text">Question <?php echo $index + 1; ?> :
+                    <?php echo htmlspecialchars($question['question']); ?></h3>
+
                 <div class="options-grid">
                     <label class="option-label">
                         <input type="radio" name="reponses[<?php echo $question['id']; ?>]" value="1" required>
                         <span><?php echo htmlspecialchars($question['reponse1']); ?></span>
                     </label>
-                    
+
                     <label class="option-label">
                         <input type="radio" name="reponses[<?php echo $question['id']; ?>]" value="2" required>
                         <span><?php echo htmlspecialchars($question['reponse2']); ?></span>
                     </label>
-                    
+
                     <label class="option-label">
                         <input type="radio" name="reponses[<?php echo $question['id']; ?>]" value="3" required>
                         <span><?php echo htmlspecialchars($question['reponse3']); ?></span>
                     </label>
-                    
+
                     <label class="option-label">
                         <input type="radio" name="reponses[<?php echo $question['id']; ?>]" value="4" required>
                         <span><?php echo htmlspecialchars($question['reponse4']); ?></span>
@@ -92,7 +96,7 @@ require_once '../commun/includes/header.php';
                 </div>
             </div>
         <?php endforeach; ?>
-        
+
         <div class="my-6 text-center">
             <button type="submit" class="btn btn-primary btn-lg">Terminer le QCM et voir les résultats</button>
         </div>
@@ -104,7 +108,7 @@ require_once '../commun/includes/header.php';
     <h2>Prêt à commencer ?</h2>
     <p class="start-overlay-text">
         Le QCM comprend 10 questions affichées sur une seule page.
-        Vous avez 10 minutes pour répondre à toutes les questions. 
+        Vous avez 10 minutes pour répondre à toutes les questions.
         Le test se lancera en plein écran. Toute tentative de quitter le plein écran annulera votre test.
     </p>
     <button id="btn-start-fullscreen" class="btn btn-primary btn-lg">Démarrer le QCM en plein écran</button>
