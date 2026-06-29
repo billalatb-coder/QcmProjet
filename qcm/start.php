@@ -9,7 +9,7 @@ if (!isset($_SESSION['utilisateur_id'])) {
     exit;
 }
 
-// Nettoyage du flag de fraude d'une éventuelle session précédente
+/
 unset($_SESSION['qcm_fraud']);
 
 
@@ -27,9 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $_SESSION['qcm_questions'] = $questions_ids;
 $_SESSION['qcm_start_time'] = time();
 
-// Flag unique autorisant le premier chargement de question.php
-// Il sera consommé dès la première ouverture de la page
-// Tout rechargement ultérieur (F5, Ctrl+R) sera détecté comme une triche
+
 $_SESSION['qcm_autorise_chargement'] = true;
 
 header("Location: question.php");

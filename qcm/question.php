@@ -9,21 +9,19 @@ if (!isset($_SESSION['utilisateur_id'])) {
     exit;
 }
 
-// Anti-rafraîchissement : on vérifie le flag de chargement unique
-// Si le flag est absent MAIS que le QCM est déjà en session -> c'est un rafraîchissement (F5) -> Triche
+//f5
 if (!isset($_SESSION['qcm_autorise_chargement']) || $_SESSION['qcm_autorise_chargement'] !== true) {
     if (isset($_SESSION['qcm_questions'])) {
         // Rafraîchissement détecté : on punit comme une triche
         header("Location: process.php?cheat=1");
         exit;
     } else {
-        // Pas de QCM en cours et pas de flag -> accès direct non autorisé
+
         header("Location: start.php");
         exit;
     }
 } else {
-    // Premier chargement légitime : on consomme le flag immédiatement
-    // Les prochains chargements de cette page n'auront plus ce flag
+
     unset($_SESSION['qcm_autorise_chargement']);
 }
 
@@ -43,7 +41,7 @@ $ids_string = implode(',', array_map('intval', $questions_ids));
 $sql = "SELECT * FROM questions WHERE id IN ($ids_string)";
 $result = mysqli_query($conn, $sql);
 
-// On stocke les questions dans un tableau et on les ordonne pour respecter l'ordre aléatoire initial
+// On stocke les questions 
 $questions_db = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $questions_db[$row['id']] = $row;
@@ -71,7 +69,8 @@ require_once '../commun/includes/header.php';
         <?php foreach ($questions_ordered as $index => $question): ?>
             <div class="question-card">
                 <h3 class="question-text">Question <?php echo $index + 1; ?> :
-                    <?php echo htmlspecialchars($question['question']); ?></h3>
+                    <?php echo htmlspecialchars($question['question']); ?>
+                </h3>
 
                 <div class="options-grid">
                     <label class="option-label">
